@@ -1,0 +1,46 @@
+---
+import heroImage from '@/assets/hero-gtanna.JPG'
+import logoImage from '@/assets/logo-gtanna.svg'
+---
+
+<section class="hero">
+  <img src={heroImage.src} alt="" class="hero__bg" />
+  <div class="hero__content">
+    <img src={logoImage.src} alt="GT Anna logo" class="hero__logo" />
+  </div>
+</section>
+
+<style lang="scss">
+  .hero {
+    position: relative;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    &__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    &__content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 2rem;
+      align-self: flex-start;
+    }
+
+    &__logo {
+      max-width: 200px;
+      height: auto;
+    }
+  }
+</style>

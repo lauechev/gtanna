@@ -1,0 +1,32 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+---
+
+<BaseLayout>
+  <main class="hero">
+    <h1>Astro Starter by candura</h1>
+    <p>A production-ready template for building fast, content-focused websites.</p>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    text-align: center;
+    padding: 2rem;
+
+    h1 {
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: var(--color-text-light);
+      font-size: 1.25rem;
+      max-width: 600px;
+    }
+  }
+</style>

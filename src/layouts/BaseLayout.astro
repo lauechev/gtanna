@@ -1,0 +1,22 @@
+---
+import Head from '@/components/Head.astro'
+import '@/styles/global.scss'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const { title = 'Astro Starter', description = 'A production-ready Astro starter template.' } =
+  Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Head title={title} description={description} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

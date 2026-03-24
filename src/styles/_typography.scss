@@ -1,9 +1,7 @@
-@use 'variables' as *;
-
 body {
-  font-family: $font-family-sans;
-  font-size: $font-size-base;
-  color: var(--color-text);
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-dark);
 }
 
 h1,
@@ -12,45 +10,45 @@ h3,
 h4,
 h5,
 h6 {
-  line-height: $line-height-tight;
+  line-height: var(--line-height-tight);
   font-weight: 700;
 }
 
 h1 {
-  font-size: $font-size-5xl;
+  font-size: var(--font-size-5xl);
 }
 
 h2 {
-  font-size: $font-size-4xl;
+  font-size: var(--font-size-4xl);
 }
 
 h3 {
-  font-size: $font-size-3xl;
+  font-size: var(--font-size-3xl);
 }
 
 h4 {
-  font-size: $font-size-2xl;
+  font-size: var(--font-size-2xl);
 }
 
 h5 {
-  font-size: $font-size-xl;
+  font-size: var(--font-size-xl);
 }
 
 h6 {
-  font-size: $font-size-lg;
+  font-size: var(--font-size-lg);
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--color-wine);
   text-decoration: none;
 
   &:hover {
-    color: var(--color-primary-dark);
+    color: var(--color-rust);
     text-decoration: underline;
   }
 }
 
 code {
-  font-family: $font-family-mono;
-  font-size: $font-size-sm;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
 }

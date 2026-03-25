@@ -1,9 +1,29 @@
+---
+const currentPath = Astro.url.pathname
+---
+
 <nav class="nav">
   <ul class="nav__list">
-    <li><a href="/">Casa</a></li>
-    <li><a href="/gtanna">GTanna</a></li>
-    <li><a href="/musica">Música</a></li>
-    <li><a href="/contacto">Contacto</a></li>
+    <li><a href="/" class:list={[{ active: currentPath === '/' }]}>Casa</a></li>
+    <li>
+      <a
+        href="/gtanna"
+        class:list={[{ active: currentPath === '/gtanna' || currentPath === '/gtanna/' }]}>GTanna</a
+      >
+    </li>
+    <li>
+      <a
+        href="/musica"
+        class:list={[{ active: currentPath === '/musica' || currentPath === '/musica/' }]}>Música</a
+      >
+    </li>
+    <li>
+      <a
+        href="/contacto"
+        class:list={[{ active: currentPath === '/contacto' || currentPath === '/contacto/' }]}
+        >Contacto</a
+      >
+    </li>
   </ul>
 </nav>
 
@@ -25,14 +45,34 @@
     }
 
     a {
-      color: var(--color-gold);
+      color: var(--dorado);
       text-decoration: none;
+      font-family: var(--font-display);
       font-size: var(--font-size-base);
+      font-weight: 500;
+      font-size: 2rem;
       letter-spacing: 0.05em;
       text-transform: lowercase;
 
       &:hover {
         opacity: 0.8;
+      }
+
+      &.active {
+        opacity: 1;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -0.2em;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100px;
+          height: 10px;
+          background: url('/underline.svg') no-repeat center;
+          background-size: contain;
+        }
       }
     }
   }

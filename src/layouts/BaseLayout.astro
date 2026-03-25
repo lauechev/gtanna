@@ -6,10 +6,14 @@ import '@/styles/global.scss'
 interface Props {
   title?: string
   description?: string
+  variant?: 'home' | 'page'
 }
 
-const { title = 'Astro Starter', description = 'A production-ready Astro starter template.' } =
-  Astro.props
+const {
+  title = 'Astro Starter',
+  description = 'A production-ready Astro starter template.',
+  variant = 'page',
+} = Astro.props
 ---
 
 <!doctype html>
@@ -17,8 +21,15 @@ const { title = 'Astro Starter', description = 'A production-ready Astro starter
   <head>
     <Head title={title} description={description} />
   </head>
-  <body>
+  <body class={variant}>
     <Nav />
     <slot />
   </body>
 </html>
+
+<style lang="scss">
+  .page {
+    background: radial-gradient(circle, var(--rojo) 0%, var(--cafe-amargo) 70%);
+    min-height: 100vh;
+  }
+</style>

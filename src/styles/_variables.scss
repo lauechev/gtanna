@@ -1,12 +1,12 @@
 // ─── Colors ───────────────────────────────────────────────────
 :root {
-  --color-wine: #771717;
-  --color-gold: #e2c072;
-  --color-olive: #958340;
-  --color-rust: #b25c36;
-  --color-dark: #301718;
-  --color-black: #000000;
-  --color-white: #ffffff;
+  --rojo: #771717;
+  --dorado: #e2c072;
+  --oliva: #958340;
+  --terracotta: #b25c36;
+  --cafe-amargo: #301718;
+  --negro: #000000;
+  --blanco: #ffffff;
 
   // ─── Spacing ──────────────────────────────────────────────────
   --spacing-xs: 0.25rem;
@@ -18,8 +18,10 @@
   --spacing-3xl: 4rem;
 
   // ─── Typography Scale ─────────────────────────────────────────
-  --font-family-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
-    sans-serif;
+  --font-display: 'ltc-goudy-thirty', sans-serif;
+  --font-body: 'IM Fell DW Pica', serif;
+  --font-family-sans:
+    system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-family-mono: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
 
   --font-size-sm: 0.875rem;

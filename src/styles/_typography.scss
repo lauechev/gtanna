@@ -1,5 +1,5 @@
 body {
-  font-family: var(--font-family-sans);
+  font-family: var(--font-body);
   font-size: var(--font-size-base);
   color: var(--color-dark);
 }
@@ -10,12 +10,16 @@ h3,
 h4,
 h5,
 h6 {
+  font-family: var(--font-display);
   line-height: var(--line-height-tight);
-  font-weight: 700;
+  font-weight: 400;
+  color: var(--dorado);
 }
 
 h1 {
-  font-size: var(--font-size-5xl);
+  font-size: var(--font-size-3xl);
+  text-align: center;
+  padding-top: var(--spacing-3xl);
 }
 
 h2 {

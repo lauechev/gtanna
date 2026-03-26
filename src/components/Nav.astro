@@ -1,8 +1,13 @@
 ---
+interface Props {
+  variant?: 'home' | 'page'
+}
+
+const { variant = 'page' } = Astro.props
 const currentPath = Astro.url.pathname
 ---
 
-<nav class="nav">
+<nav class:list={['nav', { 'nav--solid': variant === 'page' }]}>
   <ul class="nav__list">
     <li><a href="/" class:list={[{ active: currentPath === '/' }]}>Casa</a></li>
     <li>

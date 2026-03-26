@@ -1,7 +1,7 @@
 ---
 interface Props {
   title: string
-  imageSrc: ImageMetadata
+  imageSrc?: ImageMetadata
   imageAlt?: string
 }
 
@@ -11,7 +11,7 @@ const { title, imageSrc, imageAlt = '' } = Astro.props
 <section class="section">
   <h2 class="section__title">{title}</h2>
   <div class="section__content">
-    <img src={imageSrc.src} alt={imageAlt} class="section__image" />
+    {imageSrc && <img src={imageSrc.src} alt={imageAlt} class="section__image" />}
     <div class="section__text">
       <slot />
     </div>
@@ -20,20 +20,17 @@ const { title, imageSrc, imageAlt = '' } = Astro.props
 
 <style lang="scss">
   .section {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--spacing-xl);
-    padding: var(--spacing-3xl) var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+    padding: 5rem;
+    width: 98%;
 
     &__title {
-      writing-mode: vertical-lr;
-      text-orientation: mixed;
-      transform: rotate(180deg);
       font-family: var(--font-display);
-      color: var(--dorado);
+      color: var(--blanco);
       font-size: var(--font-size-2xl);
       font-weight: 400;
-      align-self: start;
     }
 
     &__content {
@@ -50,7 +47,7 @@ const { title, imageSrc, imageAlt = '' } = Astro.props
     }
 
     &__text {
-      color: var(--dorado);
+      color: var(--blanco);
       font-family: var(--font-body);
       font-size: var(--font-size-base);
       line-height: var(--line-height-base);

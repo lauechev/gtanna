@@ -22,14 +22,16 @@ const {
     <Head title={title} description={description} />
   </head>
   <body class={variant}>
-    <Nav />
+    <Nav variant={variant} />
     <slot />
   </body>
 </html>
 
-<style lang="scss">
-  .page {
+<style lang="scss" is:global>
+  body.page {
     background: radial-gradient(circle, var(--rojo) 0%, var(--cafe-amargo) 70%);
     min-height: 100vh;
+    padding-bottom: 5rem;
+    overflow-y: auto;
   }
 </style>

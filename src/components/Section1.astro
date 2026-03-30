@@ -3,16 +3,17 @@ interface Props {
   title: string
   imageSrc?: ImageMetadata
   imageAlt?: string
+  columns?: number
 }
 
-const { title, imageSrc, imageAlt = '' } = Astro.props
+const { title, imageSrc, imageAlt = '', columns = 1 } = Astro.props
 ---
 
 <section class="section">
   <h2 class="section__title">{title}</h2>
   <div class="section__content">
     {imageSrc && <img src={imageSrc.src} alt={imageAlt} class="section__image" />}
-    <div class="section__text">
+    <div class="section__text" style={`grid-template-columns: repeat(${columns}, 1fr)`}>
       <slot />
     </div>
   </div>
@@ -51,6 +52,14 @@ const { title, imageSrc, imageAlt = '' } = Astro.props
       font-family: var(--font-body);
       font-size: var(--font-size-base);
       line-height: var(--line-height-base);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-xl);
+      align-items: start;
+
+      :global(p) {
+        margin-bottom: var(--spacing-md);
+      }
     }
   }
 </style>

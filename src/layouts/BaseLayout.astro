@@ -23,15 +23,26 @@ const {
   </head>
   <body class={variant}>
     <Nav variant={variant} />
-    <slot />
+    <div class="content">
+      <slot />
+    </div>
   </body>
 </html>
 
 <style lang="scss" is:global>
   body.page {
     background: radial-gradient(circle, var(--rojo) 0%, var(--cafe-amargo) 70%);
-    min-height: 100vh;
-    padding-bottom: 5rem;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  body.page .content {
+    height: calc(100vh - 5rem);
     overflow-y: auto;
+  }
+
+  body.home .content {
+    height: 100vh;
+    overflow: hidden;
   }
 </style>

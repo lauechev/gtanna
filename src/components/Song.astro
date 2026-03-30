@@ -9,11 +9,7 @@ const { number, title, hasContent = false } = Astro.props
 ---
 
 <li class="song" data-has-content={String(hasContent)}>
-  <button
-    class="song__header"
-    aria-expanded="false"
-    aria-controls={`song-${number}`}
-  >
+  <button class="song__header" aria-expanded="false" aria-controls={`song-${number}`}>
     <span class="song__number">{number}</span>
     <span class="song__title">{title}</span>
     <span class="song__icon" aria-hidden="true">+</span>
@@ -41,9 +37,7 @@ const { number, title, hasContent = false } = Astro.props
 
         // Close any other open song
         document
-          .querySelectorAll<HTMLButtonElement>(
-            '.song__header[aria-expanded="true"]'
-          )
+          .querySelectorAll<HTMLButtonElement>('.song__header[aria-expanded="true"]')
           .forEach((other) => {
             if (other !== btn) {
               other.setAttribute('aria-expanded', 'false')
@@ -76,7 +70,7 @@ const { number, title, hasContent = false } = Astro.props
       border: none;
       color: var(--dorado);
       font-family: var(--font-body);
-      font-size: var(--font-size-xl);
+      font-size: var(--font-size-2xl);
       cursor: pointer;
       text-align: left;
       transition: opacity 0.2s ease;
@@ -99,6 +93,7 @@ const { number, title, hasContent = false } = Astro.props
 
     &__title {
       flex: 1;
+      font-family: var(--font-display);
     }
 
     &__icon {

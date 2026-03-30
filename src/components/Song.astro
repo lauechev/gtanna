@@ -1,0 +1,166 @@
+---
+interface Props {
+  number: number
+  title: string
+  hasContent?: boolean
+}
+
+const { number, title, hasContent = false } = Astro.props
+---
+
+<li class="song" data-has-content={String(hasContent)}>
+  <button
+    class="song__header"
+    aria-expanded="false"
+    aria-controls={`song-${number}`}
+  >
+    <span class="song__number">{number}</span>
+    <span class="song__title">{title}</span>
+    <span class="song__icon" aria-hidden="true">+</span>
+  </button>
+  <div class="song__body" id={`song-${number}`}>
+    <div class="song__inner">
+      <slot />
+    </div>
+  </div>
+</li>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll<HTMLButtonElement>(
+      '.song[data-has-content="true"] .song__header'
+    )
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true'
+        const controlsId = btn.getAttribute('aria-controls')
+        if (!controlsId) return
+        const body = document.getElementById(controlsId)
+        if (!body) return
+
+        // Close any other open song
+        document
+          .querySelectorAll<HTMLButtonElement>(
+            '.song__header[aria-expanded="true"]'
+          )
+          .forEach((other) => {
+            if (other !== btn) {
+              other.setAttribute('aria-expanded', 'false')
+              const otherId = other.getAttribute('aria-controls')
+              if (otherId) {
+                const otherBody = document.getElementById(otherId)
+                if (otherBody) otherBody.classList.remove('is-open')
+              }
+            }
+          })
+
+        btn.setAttribute('aria-expanded', String(!expanded))
+        body.classList.toggle('is-open', !expanded)
+      })
+    })
+  })
+</script>
+
+<style lang="scss">
+  .song {
+    list-style: none;
+
+    &__header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md) 0;
+      background: transparent;
+      border: none;
+      color: var(--dorado);
+      font-family: var(--font-body);
+      font-size: var(--font-size-xl);
+      cursor: pointer;
+      text-align: left;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &[aria-expanded='true'] .song__icon {
+        transform: rotate(45deg);
+      }
+    }
+
+    &__number {
+      font-family: var(--font-display);
+      color: var(--oliva);
+      min-width: 2rem;
+      font-size: var(--font-size-lg);
+    }
+
+    &__title {
+      flex: 1;
+    }
+
+    &__icon {
+      font-size: var(--font-size-2xl);
+      transition: transform 0.3s ease;
+      line-height: 1;
+    }
+
+    &__body {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      transition:
+        grid-template-rows 0.4s ease,
+        opacity 0.4s ease;
+
+      &.is-open {
+        grid-template-rows: 1fr;
+        opacity: 1;
+      }
+    }
+
+    &__inner {
+      overflow: hidden;
+      display: flex;
+      gap: var(--spacing-xl);
+      align-items: flex-start;
+      padding: 0;
+      transition: padding 0.4s ease;
+      color: var(--blanco);
+      font-family: var(--font-body);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height-base);
+
+      .is-open > & {
+        padding: var(--spacing-md) 0 var(--spacing-2xl);
+      }
+
+      :global(img) {
+        width: 300px;
+        height: auto;
+        object-fit: cover;
+        flex-shrink: 0;
+        order: 1;
+      }
+
+      :global(p) {
+        margin-bottom: var(--spacing-md);
+      }
+    }
+
+    &[data-has-content='false'] .song__header {
+      cursor: default;
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+
+    &[data-has-content='false'] .song__icon {
+      display: none;
+    }
+  }
+</style>

@@ -1,7 +1,68 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import Song from '@/components/Song.astro'
+import ingenuidad from '@/assets/ingenuidad.png'
 ---
 
-<BaseLayout title="Musica">
-  <main></main>
+<BaseLayout title="Música">
+  <main class="musica">
+    <h1 class="musica__title">MUCHO MÁS</h1>
+    <ol class="tracklist">
+      <Song number={1} title="Si no te puedo amar (nota de voz)" />
+      <Song number={2} title="Ingenuidad" hasContent={true}>
+        <div class="song-text">
+          <p>
+            Esta canción nace una noche desde la selva, en medio de la Sierra Nevada. Entre vino,
+            risas y humo de cigarrillo, surge una conversación entre amigas - o más bien almas
+            gemelas- sobre un sentir compartido. La ingenuidad que sentíamos al haber entrado a
+            una relación, la cual - se sabía- iba a dolernos. Así con la guitarra en la mano,
+            empezamos a hacer musica esta conversación, encontrando de repente melodías y ritmos
+            nuevos (como el son) que nos iba pidiendo la canción.
+          </p>
+          <p>
+            Al otro día y con la canción hecha nota de voz nos sentamos virtualmente con CanoS
+            (desde MEX) a construir el universo musical de la canción. El alma de la selva nos
+            acompaño desde el sonido de los animales q cantaban en este territorio mientras
+            grababamos la maqueta. Con un microfono usb de 50usd y una guitarra mal tocada
+            hicimos la maqueta de la cuál nos enamoramos tanto, que no pudimos desechar. Así es
+            como esta canción nunca volvió a regrabarse, y decidimos salir con la verdad y la
+            crudeza q contienen las tomas originales, haciendola absolutamente única y mágica.
+          </p>
+        </div>
+        <img src={ingenuidad.src} alt="Ingenuidad" />
+      </Song>
+      <Song number={3} title="Amor Liquido" />
+      <Song number={4} title="Mucho más (interlude)" />
+      <Song number={5} title="Cuánto daño te han hecho" />
+      <Song number={6} title="Sin tocarme" />
+      <Song number={7} title="Todavía uso tu camisa" />
+      <Song number={8} title="Luna negra" />
+      <Song number={9} title="Me cuesta tanto olvidarte (btrack)" />
+    </ol>
+  </main>
 </BaseLayout>
+
+<style lang="scss">
+  .musica {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--spacing-2xl) var(--spacing-xl);
+    padding-bottom: 6rem;
+
+    &__title {
+      font-family: var(--font-display);
+      color: var(--dorado);
+      font-size: var(--font-size-4xl);
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: var(--spacing-2xl);
+    }
+  }
+
+  .tracklist {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 800px;
+  }
+</style>

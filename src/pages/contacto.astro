@@ -3,5 +3,76 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
 ---
 
 <BaseLayout title="Contacto">
-  <main></main>
+  <main class="contacto">
+    <ul class="contacto__list">
+      <li>
+        <a href="#" target="_blank" rel="noopener noreferrer">TODAS LAS PLATAFORMAS MÚSICA</a>
+      </li>
+      <li>
+        <a href="#" target="_blank" rel="noopener noreferrer">SUBSTACK</a>
+      </li>
+      <li>
+        <a href="#" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+      </li>
+      <li>
+        <a href="#" target="_blank" rel="noopener noreferrer">TIKTOK</a>
+      </li>
+      <li class="contacto__booking">
+        <span>COLLABS - BOOKING</span>
+        <a href="mailto:info.etrepia@gmail.com">info.etrepia@gmail.com</a>
+      </li>
+    </ul>
+  </main>
 </BaseLayout>
+
+<style lang="scss">
+  .contacto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    padding: var(--spacing-2xl) var(--spacing-xl);
+
+    &__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+    }
+
+    a {
+      color: var(--dorado);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: var(--font-size-2xl);
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
+    &__booking {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+
+      span {
+        color: var(--dorado);
+        font-family: var(--font-display);
+        font-size: var(--font-size-2xl);
+        letter-spacing: 0.05em;
+      }
+
+      a {
+        font-family: var(--font-body);
+        font-size: var(--font-size-lg);
+        color: var(--oliva);
+      }
+    }
+  }
+</style>

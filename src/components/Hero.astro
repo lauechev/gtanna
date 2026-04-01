@@ -1,10 +1,19 @@
 ---
+import { Image } from 'astro:assets'
 import heroImage from '@/assets/hero-gtanna.JPG'
 import logoImage from '@/assets/logo-gtanna.svg'
 ---
 
 <section class="hero">
-  <img src={heroImage.src} alt="" class="hero__bg" />
+  <Image
+    src={heroImage}
+    alt=""
+    class="hero__bg"
+    width={1920}
+    format="webp"
+    quality={70}
+    loading="eager"
+  />
   <div class="hero__content">
     <img src={logoImage.src} alt="GT Anna logo" class="hero__logo" />
   </div>

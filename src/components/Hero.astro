@@ -14,10 +14,17 @@ import logoImage from '@/assets/logo-gtanna.svg'
     quality={70}
     loading="eager"
   />
-  <div class="hero__content">
-    <img src={logoImage.src} alt="GT Anna logo" class="hero__logo" />
+  <img src={logoImage.src} alt="GT Anna logo" class="hero__logo" />
+  <div class="hero__animation">
+    <canvas class="hero__spiral" id="spiral-canvas"></canvas>
   </div>
 </section>
+
+<script>
+  import { initSpiralAnimation } from '@/scripts/spiral-animation'
+  import { initSpiralAnimation2 } from '@/scripts/spiral-animation2'
+  initSpiralAnimation2('spiral-canvas')
+</script>
 
 <style lang="scss">
   .hero {
@@ -37,18 +44,28 @@ import logoImage from '@/assets/logo-gtanna.svg'
       z-index: 0;
     }
 
-    &__content {
+    &__logo {
+      position: absolute;
+      top: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 200px;
+      height: auto;
+      z-index: 2;
+    }
+
+    &__animation {
       position: relative;
       z-index: 1;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      padding-top: 2rem;
-      align-self: flex-start;
+      justify-content: center;
+      opacity: 0.7;
     }
 
-    &__logo {
-      max-width: 200px;
+    &__spiral {
+      display: block;
+      max-width: 100%;
       height: auto;
     }
   }

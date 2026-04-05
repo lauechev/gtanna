@@ -1,8 +1,22 @@
 const WORDS = [
-  'Aliada', 'del', 'sol', '·',
-  'Hija', 'de', 'la', 'luna', '·',
-  'Niña', 'de', 'la', 'selva', '·',
-  'Corazón', 'del', 'mar', '·',
+  'Aliada',
+  'del',
+  'sol',
+  '·',
+  'Hija',
+  'de',
+  'la',
+  'luna',
+  '·',
+  'Niña',
+  'de',
+  'la',
+  'selva',
+  '·',
+  'Corazón',
+  'del',
+  'mar',
+  '·',
 ]
 
 interface WordParticle {

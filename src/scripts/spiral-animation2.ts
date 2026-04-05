@@ -99,8 +99,12 @@ export function initSpiralAnimation2(canvasId: string) {
     mouseX = (e.clientX - rect.left) * (SIZE / rect.width)
     mouseY = (e.clientY - rect.top) * (SIZE / rect.height)
   })
-  canvas.addEventListener('mouseenter', () => { mouseOver = true })
-  canvas.addEventListener('mouseleave', () => { mouseOver = false })
+  canvas.addEventListener('mouseenter', () => {
+    mouseOver = true
+  })
+  canvas.addEventListener('mouseleave', () => {
+    mouseOver = false
+  })
 
   function draw() {
     if (!ctx) return

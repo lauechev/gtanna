@@ -5,8 +5,6 @@ const allWords = poem.split(/\s+/)
 interface StreamWord {
   baseArc: number
   globalIdx: number
-  dx: number
-  dy: number
 }
 
 export function initSpiralAnimation2(canvasId: string) {
@@ -80,31 +78,24 @@ export function initSpiralAnimation2(canvasId: string) {
   // Fill initial spiral
   let arc = wordSpacing
   while (arc <= spawnArc) {
-    stream.push({ baseArc: arc, globalIdx: globalCounter, dx: 0, dy: 0 })
+    stream.push({ baseArc: arc, globalIdx: globalCounter })
     globalCounter++
     arc += wordSpacing
   }
 
-  // Mouse tracking
-  let mouseX = -1000
-  let mouseY = -1000
-  let mouseOver = false
-  const repulsionRadius = 150
-  const repulsionStrength = 600
-  const maxDisplace = 40
-  const easeBack = 0.92
+  // Hover expand
+  let expandScale = 1
+  const expandTarget = 1.3
+  const normalTarget = 1
+  const expandSpeed = 0.045
 
-  canvas.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect()
-    mouseX = (e.clientX - rect.left) * (SIZE / rect.width)
-    mouseY = (e.clientY - rect.top) * (SIZE / rect.height)
-  })
   canvas.addEventListener('mouseenter', () => {
-    mouseOver = true
+    targetScale = expandTarget
   })
   canvas.addEventListener('mouseleave', () => {
-    mouseOver = false
+    targetScale = normalTarget
   })
+  let targetScale = normalTarget
 
   function draw() {
     if (!ctx) return
@@ -113,12 +104,15 @@ export function initSpiralAnimation2(canvasId: string) {
     scrollOffset += scrollSpeed
     angleOffset += 0.0004
 
+    // Smoothly interpolate expand scale
+    expandScale += (targetScale - expandScale) * expandSpeed
+
     // Spawn new words at outer edge
     while (true) {
       const lastBase = stream[stream.length - 1].baseArc
       const nextBase = lastBase + wordSpacing
       if (nextBase - scrollOffset <= spawnArc) {
-        stream.push({ baseArc: nextBase, globalIdx: globalCounter, dx: 0, dy: 0 })
+        stream.push({ baseArc: nextBase, globalIdx: globalCounter })
         globalCounter++
       } else {
         break
@@ -158,34 +152,9 @@ export function initSpiralAnimation2(canvasId: string) {
 
       if (alpha <= 0.01) continue
 
-      const baseX = centerX + pt.r * Math.cos(th)
-      const baseY = centerY + pt.r * Math.sin(th)
-
-      // Mouse repulsion
-      if (mouseOver) {
-        const dxMouse = baseX + sw.dx - mouseX
-        const dyMouse = baseY + sw.dy - mouseY
-        const dist = Math.sqrt(dxMouse * dxMouse + dyMouse * dyMouse)
-        if (dist < repulsionRadius && dist > 1) {
-          const force = repulsionStrength / (dist * dist)
-          sw.dx += (dxMouse / dist) * force
-          sw.dy += (dyMouse / dist) * force
-        }
-      }
-
-      // Ease displacement back toward 0
-      sw.dx *= easeBack
-      sw.dy *= easeBack
-
-      // Clamp displacement
-      const dMag = Math.sqrt(sw.dx * sw.dx + sw.dy * sw.dy)
-      if (dMag > maxDisplace) {
-        sw.dx = (sw.dx / dMag) * maxDisplace
-        sw.dy = (sw.dy / dMag) * maxDisplace
-      }
-
-      const x = baseX + sw.dx
-      const y = baseY + sw.dy
+      const scaledR = pt.r * expandScale
+      const x = centerX + scaledR * Math.cos(th)
+      const y = centerY + scaledR * Math.sin(th)
 
       ctx.save()
       ctx.translate(x, y)

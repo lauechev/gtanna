@@ -97,6 +97,8 @@ export function initSpiralAnimation2(canvasId: string) {
   })
   let targetScale = normalTarget
 
+  let animId: number
+
   function draw() {
     if (!ctx) return
     ctx.clearRect(0, 0, SIZE, SIZE)
@@ -164,10 +166,15 @@ export function initSpiralAnimation2(canvasId: string) {
       ctx.restore()
     }
 
-    requestAnimationFrame(draw)
+    animId = requestAnimationFrame(draw)
   }
 
+  // Stop animation when navigating away
+  document.addEventListener('astro:before-swap', () => {
+    cancelAnimationFrame(animId)
+  }, { once: true })
+
   document.fonts.ready.then(() => {
-    requestAnimationFrame(draw)
+    animId = requestAnimationFrame(draw)
   })
 }

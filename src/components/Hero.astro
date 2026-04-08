@@ -23,7 +23,13 @@ import logoImage from '@/assets/logo-gtanna.svg'
 <script>
   import { initSpiralAnimation } from '@/scripts/spiral-animation'
   import { initSpiralAnimation2 } from '@/scripts/spiral-animation2'
-  initSpiralAnimation2('spiral-canvas')
+
+  document.addEventListener('astro:page-load', () => {
+    const canvas = document.getElementById('spiral-canvas') as HTMLCanvasElement
+    if (canvas) {
+      initSpiralAnimation2('spiral-canvas')
+    }
+  })
 </script>
 
 <style lang="scss">

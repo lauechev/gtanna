@@ -87,7 +87,7 @@ export function initSpiralAnimation2(canvasId: string) {
   let expandScale = 1
   const expandTarget = 1.3
   const normalTarget = 1
-  const expandSpeed = 0.045
+  const expandSpeed = 0.065
 
   canvas.addEventListener('mouseenter', () => {
     targetScale = expandTarget

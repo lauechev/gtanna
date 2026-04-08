@@ -1,3 +1,9 @@
 @use 'variables';
 @use 'reset';
 @use 'typography';
+
+*,
+*::before,
+*::after {
+  cursor: url('/cursor-llave.svg') 4 0, auto !important;
+}

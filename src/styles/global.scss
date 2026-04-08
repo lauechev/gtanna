@@ -2,8 +2,16 @@
 @use 'reset';
 @use 'typography';
 
-*,
-*::before,
-*::after {
-  cursor: url('/cursor-llave.svg') 4 0, auto !important;
+html {
+  cursor: url('/cursor-llave.png') 4 0, auto;
+}
+
+a,
+button,
+input,
+textarea,
+select,
+label,
+[role='button'] {
+  cursor: url('/cursor-llave.png') 4 0, pointer !important;
 }

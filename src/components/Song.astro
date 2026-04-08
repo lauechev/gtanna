@@ -1,28 +1,48 @@
 ---
 interface Props {
-  number: number
   title: string
   hasContent?: boolean
+  track?: string
 }
 
-const { number, title, hasContent = false } = Astro.props
+const { title, hasContent = false, track } = Astro.props
+const id = title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
 ---
 
 <li class="song" data-has-content={String(hasContent)}>
-  <button class="song__header" aria-expanded="false" aria-controls={`song-${number}`}>
-    <span class="song__number">{number}</span>
+  <button class="song__header" aria-expanded="false" aria-controls={`song-${id}`}>
     <span class="song__title">{title}</span>
     <span class="song__icon" aria-hidden="true">+</span>
   </button>
-  <div class="song__body" id={`song-${number}`}>
-    <div class="song__inner">
-      <slot />
+  <div class="song__body" id={`song-${id}`}>
+    <div class="song__content">
+      {track && (
+        <div class="player" data-track={track}>
+          <button class="player__btn" aria-label="Play">
+            <svg class="player__icon-play" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="6,4 20,12 6,20" />
+            </svg>
+            <svg class="player__icon-pause" viewBox="0 0 24 24" fill="currentColor">
+              <rect x="5" y="4" width="4" height="16" />
+              <rect x="15" y="4" width="4" height="16" />
+            </svg>
+          </button>
+          <span class="player__elapsed">0:00</span>
+          <div class="player__track">
+            <div class="player__progress"></div>
+          </div>
+          <span class="player__remaining">0:00</span>
+        </div>
+      )}
+      <div class="song__inner">
+        <slot />
+      </div>
     </div>
   </div>
 </li>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const buttons = document.querySelectorAll<HTMLButtonElement>(
       '.song[data-has-content="true"] .song__header'
     )
@@ -51,6 +71,76 @@ const { number, title, hasContent = false } = Astro.props
 
         btn.setAttribute('aria-expanded', String(!expanded))
         body.classList.toggle('is-open', !expanded)
+      })
+    })
+
+    // Audio players
+    const players = document.querySelectorAll<HTMLElement>('.player')
+
+    players.forEach((player) => {
+      const src = player.dataset.track
+      if (!src) return
+
+      const audio = new Audio(src)
+      const btn = player.querySelector<HTMLButtonElement>('.player__btn')!
+      const progress = player.querySelector<HTMLElement>('.player__progress')!
+      const track = player.querySelector<HTMLElement>('.player__track')!
+      const elapsed = player.querySelector<HTMLElement>('.player__elapsed')!
+      const remaining = player.querySelector<HTMLElement>('.player__remaining')!
+
+      function formatTime(s: number) {
+        const min = Math.floor(s / 60)
+        const sec = Math.floor(s % 60)
+        return `${min}:${sec.toString().padStart(2, '0')}`
+      }
+
+      btn.addEventListener('click', () => {
+        // Pause any other playing audio
+        document.querySelectorAll<HTMLElement>('.player.is-playing').forEach((other) => {
+          if (other !== player) {
+            other.classList.remove('is-playing')
+            other.dispatchEvent(new CustomEvent('stop'))
+          }
+        })
+
+        if (audio.paused) {
+          audio.play()
+          player.classList.add('is-playing')
+        } else {
+          audio.pause()
+          player.classList.remove('is-playing')
+        }
+      })
+
+      player.addEventListener('stop', () => {
+        audio.pause()
+        player.classList.remove('is-playing')
+      })
+
+      audio.addEventListener('loadedmetadata', () => {
+        remaining.textContent = formatTime(audio.duration)
+      })
+
+      audio.addEventListener('timeupdate', () => {
+        if (!audio.duration) return
+        const pct = (audio.currentTime / audio.duration) * 100
+        progress.style.width = `${pct}%`
+        elapsed.textContent = formatTime(audio.currentTime)
+        remaining.textContent = formatTime(audio.duration - audio.currentTime)
+      })
+
+      audio.addEventListener('ended', () => {
+        player.classList.remove('is-playing')
+        progress.style.width = '100%'
+        elapsed.textContent = formatTime(audio.duration)
+        remaining.textContent = '0:00'
+      })
+
+      track.addEventListener('click', (e) => {
+        if (!audio.duration) return
+        const rect = track.getBoundingClientRect()
+        const pct = (e.clientX - rect.left) / rect.width
+        audio.currentTime = pct * audio.duration
       })
     })
   })
@@ -84,13 +174,6 @@ const { number, title, hasContent = false } = Astro.props
       }
     }
 
-    &__number {
-      font-family: var(--font-display);
-      color: var(--oliva);
-      min-width: 2rem;
-      font-size: var(--font-size-lg);
-    }
-
     &__title {
       flex: 1;
       font-family: var(--font-body);
@@ -117,28 +200,30 @@ const { number, title, hasContent = false } = Astro.props
       }
     }
 
-    &__inner {
+    &__content {
       overflow: hidden;
-      display: flex;
-      gap: var(--spacing-xl);
-      align-items: flex-start;
       padding: 0;
       transition: padding 0.4s ease;
-      color: var(--beige);
-      font-family: var(--font-body);
-      font-size: var(--font-size-base);
-      line-height: var(--line-height-base);
 
       .is-open > & {
         padding: var(--spacing-md) 0 var(--spacing-2xl);
       }
+    }
+
+    &__inner {
+      display: flex;
+      gap: var(--spacing-xl);
+      align-items: flex-start;
+      color: var(--beige);
+      font-family: var(--font-body);
+      font-size: var(--font-size-base);
+      line-height: var(--line-height-base);
 
       :global(img) {
         width: 300px;
         height: auto;
         object-fit: cover;
         flex-shrink: 0;
-        order: 1;
       }
 
       :global(p) {
@@ -157,6 +242,80 @@ const { number, title, hasContent = false } = Astro.props
 
     &[data-has-content='false'] .song__icon {
       display: none;
+    }
+  }
+
+  .player {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-3xl);
+
+    &__btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--dorado);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 0;
+
+      .player__icon-play,
+      .player__icon-pause {
+        width: 12px;
+        height: 12px;
+      }
+
+      .player__icon-play {
+        color: var(--rojo);
+        display: block;
+      }
+
+      .player__icon-pause {
+        color: var(--rojo);
+        display: none;
+      }
+    }
+
+    &.is-playing .player__btn {
+      .player__icon-play {
+        display: none;
+      }
+      .player__icon-pause {
+        display: block;
+      }
+    }
+
+    &__elapsed,
+    &__remaining {
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      color: var(--dorado);
+      min-width: 2.5rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    &__track {
+      flex: 1;
+      max-width: 90%;
+      height: 3px;
+      background: var(--oliva);
+      border-radius: 1.5px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    &__progress {
+      height: 100%;
+      background: var(--dorado);
+      border-radius: 1.5px;
+      width: 0%;
+      transition: width 0.1s linear;
     }
   }
 </style>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+---
+
+<BaseLayout title="Proyecto Gtanna">
+  <main>
+    <a href="/gtanna" class="back-arrow" aria-label="Volver a Gtanna"><svg width="28" height="12" viewBox="0 0 28 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 1L1 6L6 11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="1" y1="6" x2="27" y2="6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+  </main>
+</BaseLayout>
+
+<style lang="scss">
+  .back-arrow {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    color: var(--dorado);
+    font-size: 2rem;
+    text-decoration: none;
+    z-index: 10;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+</style>

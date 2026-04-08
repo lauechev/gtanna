@@ -1,110 +1,33 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import Section1 from '@/components/Section1.astro'
-import Arquetipo from '@/assets/arquetipo.png'
 ---
 
 <BaseLayout title="Gtanna">
-  <main>
-    <Section1 title="arquetipo" imageSrc={Arquetipo} imageAlt="Arquetipo" columns={3}>
-      <div>
-        <p>
-          Todos adentro tenemos una gitana.<br />
-          Una maga sabía que conoce el camino<br />
-          Solo hay que acordarnos de que existe<br />
-          y volver a ella <br />
-          Solo hay que volver a oírla<br />
-          Y recordar
-        </p>
-        <p>
-          Gitana de manada. <br />
-          Manada de lobos Gitana salvaje. <br />
-          Intuitiva y poderosa.
-        </p>
-        <p>
-          Gitana de recuerdos ancestrales. <br />
-          canal de conexión con el más allá
-        </p>
-        <p>
-          Aliada del sol <br />
-          Hija de la luna <br />
-          Niña de la selva <br />
-          Corazón del mar
-        </p>
-        <p>
-          Tan humana como todos los dolores <br />
-          Y todas las angustias
-        </p>
-      </div>
-      <div>
-        <p>
-          Tan poderosa como todas las curas <br />
-          Y todos los remedios.
-        </p>
-        <p>
-          Maestra de la nada <br />
-          Y curiosa hasta el límite borroso que ya deja de existir.
-        </p>
-        <p>La hacen ella su coraje, su valentía, su gracia.</p>
-        <p>
-          Alquimista de los sentires.<br />
-          Cuidadora de la Fuente.<br />
-          Creadora. Creativa
-        </p>
-        <p>
-          Pelo suelto color atardecer <br />
-          Y en sus ojos noche yace su voz <br />
-          Porque ella no habla tanto. <br />
-          Canta más. <br />
-          Canta aquí y allá <br />
-          Y en todas partes
-        </p>
-        <p>
-          Baila para ella y toca el tambor. <br />
-          Sus manos saben de música <br />
-          Y su voz lleva el timón.
-        </p>
-      </div>
-      <div>
-        <p>
-          Los caballos son sus aliados <br />
-          Medicina mutua llevan donde van. <br />
-          Entregan la magia de la eternidad.
-        </p>
-        <p>
-          La gitana no anda sola. <br />
-          Va en comunidad. <br />
-          Círculos de ascendencia y familia escogida. <br />
-          Q la sostienen <br />
-          y la llenan de vida.
-        </p>
-        <p>
-          Gitana de gestos y canciones <br />
-          De consejos y razónes
-        </p>
-        <p>
-          Gitana de amuletos y tesoros. <br />
-          De pies descalzos y empantanados.
-        </p>
-        <p>
-          Para ella no existe tiempo ni camino <br />
-          Camina a su propio ritmo
-        </p>
-        <p>
-          Con paciencia recorre los pasos <br />
-          q le va dictando su brujula: EL CORAZÓN.
-        </p>
-      </div>
-    </Section1>
-
-    <Section1 title="proyecto gtanna" imageSrc={Arquetipo} imageAlt="Proyecto GTanna">
-      <p>
-        Gtanna es un proyecto de alma humana y descalza. Experimenta y nombra procesos, sentires y
-        contradicciones atravesados por una mirada mágica y simbólica de la realidad. Su voz es
-        íntima, cruda, honesta y contenida. Acompaña a quienes seienten lo mismo desde un lugar
-        orgánico, descalzo y honesto, para que se sienta visto, comprendido y menos solo en su
-        sentir.
-      </p>
-    </Section1>
+  <main class="gtanna-hub">
+    <a href="/arquetipo" class="gtanna-hub__link">arquetipo</a>
+    <a href="/proyectoGtanna" class="gtanna-hub__link">proyecto gtanna</a>
   </main>
 </BaseLayout>
+
+<style lang="scss">
+  .gtanna-hub {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: var(--spacing-2xl);
+
+    &__link {
+      font-family: var(--font-display);
+      color: var(--dorado);
+      font-size: var(--font-size-4xl);
+      text-decoration: none;
+      text-transform: lowercase;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+</style>

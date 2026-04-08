@@ -1,10 +1,23 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
+import Section1 from '@/components/Section1.astro'
+import Arquetipo from '@/assets/arquetipo.png'
 ---
 
 <BaseLayout title="Proyecto Gtanna">
   <main>
     <a href="/gtanna" class="back-arrow" aria-label="Volver a Gtanna"><svg width="28" height="12" viewBox="0 0 28 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 1L1 6L6 11" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><line x1="1" y1="6" x2="27" y2="6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+    <div class="proyecto-wrapper">
+      <Section1 title="proyecto gtanna" imageSrc={Arquetipo} imageAlt="Proyecto GTanna">
+        <p>
+          Gtanna es un proyecto de alma humana y descalza. Experimenta y nombra procesos, sentires y
+          contradicciones atravesados por una mirada mágica y simbólica de la realidad. Su voz es
+          íntima, cruda, honesta y contenida. Acompaña a quienes seienten lo mismo desde un lugar
+          orgánico, descalzo y honesto, para que se sienta visto, comprendido y menos solo en su
+          sentir.
+        </p>
+      </Section1>
+    </div>
   </main>
 </BaseLayout>
 
@@ -21,5 +34,10 @@ import BaseLayout from '@/layouts/BaseLayout.astro'
     &:hover {
       opacity: 0.8;
     }
+  }
+
+  .proyecto-wrapper :global(p) {
+    max-width: 50%;
+    margin-inline: auto;
   }
 </style>

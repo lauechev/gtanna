@@ -3,7 +3,9 @@
 @use 'typography';
 
 html {
-  cursor: url('/cursor-llave.png') 4 0, auto;
+  cursor:
+    url('/cursor-llave.png') 4 0,
+    auto;
 }
 
 a,
@@ -13,5 +15,7 @@ textarea,
 select,
 label,
 [role='button'] {
-  cursor: url('/cursor-llave.png') 4 0, pointer !important;
+  cursor:
+    url('/cursor-llave.png') 4 0,
+    pointer !important;
 }

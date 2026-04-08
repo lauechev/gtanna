@@ -6,7 +6,10 @@ interface Props {
 }
 
 const { title, hasContent = false, track } = Astro.props
-const id = title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+const id = title
+  .toLowerCase()
+  .replace(/\s+/g, '-')
+  .replace(/[^a-z0-9-]/g, '')
 ---
 
 <li class="song" data-has-content={String(hasContent)}>
@@ -16,24 +19,26 @@ const id = title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
   </button>
   <div class="song__body" id={`song-${id}`}>
     <div class="song__content">
-      {track && (
-        <div class="player" data-track={track}>
-          <button class="player__btn" aria-label="Play">
-            <svg class="player__icon-play" viewBox="0 0 24 24" fill="currentColor">
-              <polygon points="6,4 20,12 6,20" />
-            </svg>
-            <svg class="player__icon-pause" viewBox="0 0 24 24" fill="currentColor">
-              <rect x="5" y="4" width="4" height="16" />
-              <rect x="15" y="4" width="4" height="16" />
-            </svg>
-          </button>
-          <span class="player__elapsed">0:00</span>
-          <div class="player__track">
-            <div class="player__progress"></div>
+      {
+        track && (
+          <div class="player" data-track={track}>
+            <button class="player__btn" aria-label="Play">
+              <svg class="player__icon-play" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="6,4 20,12 6,20" />
+              </svg>
+              <svg class="player__icon-pause" viewBox="0 0 24 24" fill="currentColor">
+                <rect x="5" y="4" width="4" height="16" />
+                <rect x="15" y="4" width="4" height="16" />
+              </svg>
+            </button>
+            <span class="player__elapsed">0:00</span>
+            <div class="player__track">
+              <div class="player__progress" />
+            </div>
+            <span class="player__remaining">0:00</span>
           </div>
-          <span class="player__remaining">0:00</span>
-        </div>
-      )}
+        )
+      }
       <div class="song__inner">
         <slot />
       </div>

@@ -170,9 +170,13 @@ export function initSpiralAnimation2(canvasId: string) {
   }
 
   // Stop animation when navigating away
-  document.addEventListener('astro:before-swap', () => {
-    cancelAnimationFrame(animId)
-  }, { once: true })
+  document.addEventListener(
+    'astro:before-swap',
+    () => {
+      cancelAnimationFrame(animId)
+    },
+    { once: true }
+  )
 
   document.fonts.ready.then(() => {
     animId = requestAnimationFrame(draw)

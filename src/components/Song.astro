@@ -202,18 +202,13 @@ const id = title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
 
     &__content {
       overflow: hidden;
-      padding: 0;
-      transition: padding 0.4s ease;
-
-      .is-open > & {
-        padding: var(--spacing-md) 0 var(--spacing-2xl);
-      }
     }
 
     &__inner {
       display: flex;
       gap: var(--spacing-xl);
       align-items: flex-start;
+      padding-bottom: var(--spacing-2xl);
       color: var(--beige);
       font-family: var(--font-body);
       font-size: var(--font-size-base);

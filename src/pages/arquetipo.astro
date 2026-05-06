@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import Section1 from '@/components/Section1.astro'
-import arquetipoImg from '@/assets/arquetipo.png'
+import arquetipoImg from '@/assets/arquetipo-foto.png'
 ---
 
 <BaseLayout title="Arquetipo">
@@ -134,5 +134,10 @@ import arquetipoImg from '@/assets/arquetipo.png'
     &:hover {
       opacity: 0.8;
     }
+  }
+
+  main :global(.section__image) {
+    width: 80vw;
+    max-width: 80vw;
   }
 </style>
